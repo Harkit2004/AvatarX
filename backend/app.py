@@ -1,5 +1,6 @@
 import os
 import uuid
+import base64
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
@@ -13,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=True,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -50,7 +51,7 @@ async def upload_image(file: UploadFile = File(...)):
     except Exception as e:
         return JSONResponse(content={"error": str(e)}, status_code=500)
     
-@app.post("/generate-3d-model/")
+@app.post("/generate-3d-model/{request}")
 async def generate_3d_model(request: str):
     try:
         file_path_3d = await generate_3d_model_from_prompt(request)

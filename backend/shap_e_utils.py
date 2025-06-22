@@ -24,8 +24,8 @@ async def generate_3d_model_from_prompt(request: str) -> str:
     ply_path = export_to_ply(images[0], f"3dmodels/{uuid.uuid4()}.ply")
     return ply_path
 
-async def generate_3d_model_from_image(base64_image: str) -> str:
-    prompt = await give_description(base64_image)
+async def generate_3d_model_from_image(file_path: str) -> str:
+    prompt = await give_description(file_path)
     images = pipe(
         prompt,
         guidance_scale=guidance_scale,

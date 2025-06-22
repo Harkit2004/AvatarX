@@ -2,7 +2,7 @@
 
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment } from "@react-three/drei"
-import { Suspense } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { PLYModel } from "./ply-model"
 
 interface ModelViewerProps {
@@ -10,6 +10,20 @@ interface ModelViewerProps {
 }
 
 export function ModelViewer({ modelUrl }: ModelViewerProps) {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return (
+      <div className="w-full h-64 border rounded-lg overflow-hidden bg-gray-900 flex items-center justify-center">
+        <div className="text-white">Loading 3D viewer...</div>
+      </div>
+    )
+  }
+
   return (
     <div className="w-full h-64 border rounded-lg overflow-hidden bg-gray-900">
       <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>

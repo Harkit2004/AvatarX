@@ -1,7 +1,7 @@
 "use client"
 
 import type { Message } from "@/types/chat"
-import { ModelViewer } from "./model-viewer"
+import { DynamicModelViewer } from "./dynamic-model-viewer"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { User, Bot } from "lucide-react"
 
@@ -24,13 +24,13 @@ export function MessageBubble({ message }: MessageBubbleProps) {
 
           {message.image && (
             <div className="mt-2">
-              <img src={message.image || "/file.svg"} alt="Uploaded" className="max-w-xs rounded border" />
+              <img src={message.image || "/placeholder.svg"} alt="Uploaded" className="max-w-xs rounded border" />
             </div>
           )}
 
           {message.modelUrl && (
             <div className="mt-2">
-              <ModelViewer modelUrl={message.modelUrl} />
+              <DynamicModelViewer modelUrl={message.modelUrl} />
             </div>
           )}
         </div>

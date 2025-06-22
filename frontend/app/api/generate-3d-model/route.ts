@@ -2,12 +2,10 @@ export async function POST(request: Request) {
   try {
     const { prompt } = await request.json()
 
-    const response = await fetch("http://localhost:8000/generate-3d-model/", {
+    console.log(prompt)
+
+    const response = await fetch(`http://localhost:8000/generate-3d-model/${ prompt }`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(prompt),
     })
 
     if (!response.ok) {
