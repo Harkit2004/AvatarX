@@ -1,6 +1,6 @@
 import torch
 from diffusers import ShapEPipeline
-from diffusers.utils.export_utils import export_to_ply
+from diffusers.utils.export_utils import export_to_obj
 from gemini_utils import give_description
 import uuid
 
@@ -11,7 +11,7 @@ pipe = pipe.to(device)
 
 guidance_scale = 15.0
 
-# return a 3D model in PLY format file path
+# return a 3D model in OBJ format file path
 async def generate_3d_model_from_prompt(request: str) -> str:
     prompt = [request]
     images = pipe(
@@ -21,8 +21,8 @@ async def generate_3d_model_from_prompt(request: str) -> str:
         frame_size=256,
         output_type="mesh"
     ).images
-    ply_path = export_to_ply(images[0], f"3dmodels/{uuid.uuid4()}.ply")
-    return ply_path
+    obj_path = export_to_obj(images[0], f"3dmodels/{uuid.uuid4()}.obj")
+    return obj_path
 
 async def generate_3d_model_from_image(file_path: str) -> str:
     prompt = await give_description(file_path)
@@ -33,5 +33,5 @@ async def generate_3d_model_from_image(file_path: str) -> str:
         frame_size=256,
         output_type="mesh"
     ).images
-    ply_path = export_to_ply(images[0], f"3dmodels/{uuid.uuid4()}.ply")
-    return ply_path
+    obj_path = export_to_obj(images[0], f"3dmodels/{uuid.uuid4()}.obj")
+    return obj_path
