@@ -4,7 +4,7 @@ export async function POST(request: Request) {
 
     console.log(prompt)
 
-    const response = await fetch(`http://localhost:8000/generate-3d-model/${ prompt }`, {
+    const response = await fetch(`${ process.env.BACKEND_URL }generate-3d-model/${ prompt }`, {
       method: "POST",
     })
 

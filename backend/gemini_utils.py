@@ -21,7 +21,13 @@ async def give_human_description(file_path: str):
                         mime_type="image/jpeg",
                         data=f.read(),
                     ),
-                    types.Part.from_text(text="""Figure out if the image is of a human or not. If it is, give a small description of about 20 characters starting with "a human with" and followed about their appearance, including type of clothing, hair length and color, and any other notable features. If it is not a human, just say "not a human", nothing else."""),
+                    types.Part.from_text(text="""
+                        As an expert in image analysis, identify whether the provided image depicts a human. 
+                        If it is a human, provide a very short and highly generic description starting with "a human in T-pose," 
+                        followed by a very generic and brief note on their clothing type, hair type and color, and any notable features. 
+                        Keep the description minimal and avoid specific details. 
+                        If the image does not depict a human, respond only with "not a human".
+                    """),
                 ],
             ),
         ]

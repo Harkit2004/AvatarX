@@ -17,21 +17,23 @@ async def generate_3d_model_from_prompt(request: str) -> str:
     images = pipe(
         prompt,
         guidance_scale=guidance_scale,
-        num_inference_steps=64,
-        frame_size=256,
+        num_inference_steps=128,
+        frame_size=512,
         output_type="mesh"
     ).images
-    obj_path = export_to_obj(images[0], f"3dmodels/{uuid.uuid4()}.obj")
-    return obj_path
+    uq_id=uuid.uuid4()
+    export_to_obj(images[0], f"3dmodels/{uq_id}.obj")
+    return f"3dmodels/{uq_id}.obj"
 
 async def generate_3d_model_from_image(file_path: str) -> str:
     prompt = await give_description(file_path)
     images = pipe(
         prompt,
         guidance_scale=guidance_scale,
-        num_inference_steps=64,
-        frame_size=256,
+        num_inference_steps=128,
+        frame_size=512,
         output_type="mesh"
     ).images
-    obj_path = export_to_obj(images[0], f"3dmodels/{uuid.uuid4()}.obj")
-    return obj_path
+    uq_id=uuid.uuid4()
+    export_to_obj(images[0], f"3dmodels/{uq_id}.obj")
+    return f"3dmodels/{uq_id}.obj"

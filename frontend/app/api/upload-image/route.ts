@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     const backendFormData = new FormData()
     backendFormData.append("file", file)
 
-    const response = await fetch("http://localhost:8000/upload-image/", {
+    const response = await fetch(`${ process.env.BACKEND_URL }upload-image/`, {
       method: "POST",
       body: backendFormData,
     })
